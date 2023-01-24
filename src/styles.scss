@@ -1,1 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+// table{
+
+//     td {
+//         @apply p-3;
+//         padding: 1em; 
+//         background-color: aquamarine; 
+        
+//     }   
+// }
+
+.def-table{
+    border: 1px solid silver
+}
+
+/* Color Theme Swatches in Hex */
+$primary-color: #00747C;
+$secondary-color: #00BBC9;
+$third-color: #CACACA;
+$gray-100: #878787;
+$dark-100: #202022;
+
+
+

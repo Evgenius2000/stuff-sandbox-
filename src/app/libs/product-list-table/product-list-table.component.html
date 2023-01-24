@@ -1,0 +1,47 @@
+<p-table [value]="dataGrid" 
+    [scrollable]="true" 
+    class="p-3"
+    [paginator]="true" 
+    [rows]="5" 
+    [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[5,10,20]" 
+    styleClass="p-datatable-gridlines"
+>
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Image</th>            
+            <th pSortableColumn="title">Name <p-sortIcon field="title"></p-sortIcon></th>
+            <th pSortableColumn="description">Description <p-sortIcon field="description"></p-sortIcon></th>
+            <th pSortableColumn="price">Price, $<p-sortIcon field="price"></p-sortIcon></th>
+            <th pSortableColumn="selected">Selected <p-sortIcon field="selected"></p-sortIcon></th>
+            <th>Action</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-data>
+        <tr>
+            <td class="text-center">
+                <img *ngIf="!!data.image" src="{{data.image}}">                    
+            </td>            
+            <td>{{data.title}}</td>
+            <td>{{data.description}}</td>
+            <td>{{data.price}}</td>
+
+            <td class="text-center">
+                <i *ngIf="!data.favorite" class="pi pi-star" (click)="onFavorite(data, true)"></i>
+                <i *ngIf="data.favorite" class="pi pi-star-fill"  (click)="onFavorite(data, false)"></i>
+            </td>
+            <td>
+                <p-overlayPanel #op>
+                    <ng-template pTemplate>
+                        <div class="flex column">
+                            <p-button icon="pi pi-pencil" (click)="onEdit(data)" styleClass="p-button-sm p-button-rounded p-button-outlined p-button-info"></p-button>
+                            <p-button icon="pi pi-trash"  (click)="onDelete(data)" styleClass="p-button-sm p-button-rounded p-button-outlined p-button-danger"></p-button>                            
+                        </div>
+                    </ng-template>
+                </p-overlayPanel>
+                <button pButton pRipple type="button" (click)="op.toggle($event)" icon="pi pi-ellipsis-h" class="p-button-outlined p-button-secondary"></button>
+                
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

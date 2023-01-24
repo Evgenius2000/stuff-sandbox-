@@ -1,0 +1,102 @@
+<form [formGroup]="productForm" (ngSubmit)="onAddProduct()">
+  <span class="mt-4">
+    <label class="required">Title</label>
+    <small
+      *ngIf="productForm.controls['title'].invalid &&
+        productForm.controls['title'].touched"
+      >(title is required)</small
+    >
+    <input class="mt-2" formControlName="title" type="text" pInputText />
+  </span>
+  <span class="mt-6">
+    <label class="required">Price </label>
+    <small
+      *ngIf="(productForm.controls['price'].invalid &&productForm.controls['price'].touched) ||
+        productForm.controls['price'].value === 0"
+    >
+      (price is required and not zero)</small
+    >
+    <p-inputNumber
+      styleClass="mt-2 w-12"
+      formControlName="price"
+      class="mt-2 w-12"
+      id="price-input"
+      mode="currency"
+      currency="USD"
+      locale="en-US"
+    ></p-inputNumber>
+  </span>
+  <span class="mt-6">
+    <label class="required">Brand </label>
+    <small
+      *ngIf="productForm.controls['brand'].invalid &&
+        productForm.controls['brand'].touched"
+      >(brand is required)</small
+    >
+    <input
+      class="mt-2"
+      formControlName="brand"
+      id="brand-input"
+      type="text"
+      pInputText
+    />
+  </span>
+  <span class="mt-4">
+    <label class="required">Category </label>
+    <small
+      *ngIf="productForm.controls['category'].invalid &&
+        productForm.controls['category'].touched"
+      >(category is required)</small
+    >
+    <input
+      class="mt-2"
+      id="category-input"
+      formControlName="category"
+      type="text"
+      pInputText
+    />
+  </span>
+  <span class="mt-4">
+    <label>Description</label>
+    <textarea
+      class="mt-2"
+      formControlName="description"
+      id="description-input"
+      rows="5"
+      pInputTextarea
+      class="w-12"
+    ></textarea>
+  </span>
+  <span class="mt-4" *ngIf="formMode === 'edit'">
+    <p-fileUpload
+      styleClass="w-12 px-3"
+      chooseStyleClass="px-3 flex justify-content-center"
+      [maxFileSize]="maxFileSize"
+      mode="basic"
+      name="file"
+      [url]="imageUploadUrl"
+      accept="image/*"
+      (uploadHandler)="uploadHandler($event)"
+      (onUpload)="onUpload($event)"
+    ></p-fileUpload>
+  </span>
+
+  <div class="w-12 flex justify-content-end flex-wrap card-container blue-container mt-4">
+    <button
+      pButton
+      pRipple
+      type="submit"
+      value="Submit"
+      [label]="formMode === 'create' ? 'Add product' : 'Edit Product'"
+      class="p-button-outlined ml-2"
+    ></button>
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="Cancel"
+      (click)="onCancel()"
+      class="p-button-outlined p-button-secondary ml-2"
+    ></button>
+  </div>
+</form>
